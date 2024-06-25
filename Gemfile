@@ -9,6 +9,7 @@ gem "rails", "~> 7.0.8", ">= 7.0.8.3"
 gem "stackprof"
 gem "sentry-ruby"
 gem "sentry-rails"
+gem "dotenv"
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
 
