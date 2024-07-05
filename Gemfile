@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "3.2.2"
+ruby "3.1.1"
 
 gem "rails", "~> 7.0.8", ">= 7.0.8.3"
 
@@ -10,8 +10,12 @@ gem "sentry-ruby"
 gem "sentry-rails"
 gem "pg"
 gem 'slim_lint'
-
+gem 'slim-rails'
 gem "sprockets-rails"
+gem 'omniauth'
+gem 'omniauth-github'
+gem "omniauth-rails_csrf_protection"
+
 gem "puma", "~> 5.0"
 gem "jsbundling-rails"
 gem "turbo-rails"
