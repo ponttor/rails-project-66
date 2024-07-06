@@ -7,3 +7,11 @@
           = 'Главная'
         li.nav-item.me-2
           = 'Репозитории'
+    ul.nav
+      .nav-item.me-2.d-flex
+        - if signed_in?
+          = link_to t('.sign_out'), auth_destroy_path, class: 'nav-link link-dark'
+        - else
+          = button_to auth_request_path('github'), method: :post, data: { turbo: false }, class: 'nav-link link-dark' do
+            span.bi.bi-github.me-2
+            = t('.sign_in')
