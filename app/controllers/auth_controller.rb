@@ -5,6 +5,13 @@ class AuthController < ApplicationController
       existing_user = User.find_or_create_by(email: auth[:info][:email])
       if existing_user.persisted?
         sign_in existing_user
+
+        existing_user.nickname = auth[:info][:nickname]
+        existing_user.name = auth[:info][:name]
+        existing_user.email = auth[:info][:email]
+        existing_user.image_url = auth[:info][:image]
+        existing_user.token = auth[:credentials][:token]
+
         redirect_to root_path, flash: { success: t('.login_success') }
       else
         redirect_to root_path, flash: { danger: t('.login_error') }
