@@ -12,6 +12,8 @@ class AuthController < ApplicationController
         existing_user.image_url = auth[:info][:image]
         existing_user.token = auth[:credentials][:token]
 
+        existing_user.save
+
         redirect_to root_path, flash: { success: t('.login_success') }
       else
         redirect_to root_path, flash: { danger: t('.login_error') }

@@ -3,10 +3,10 @@
     .navbar.navbar-expand-md.me-auto
       = 'Pic'
       ul.nav.flex-grow-1.me-auto.ms-2
-        li.nav-item.me-2
-          = 'Главная'
-        li.nav-item.me-2
-          = 'Репозитории'
+        li.nav-item
+          = link_to t('.main'), root_path, class: 'nav-link link-dark'
+        li.nav-item
+          = link_to t('.repositories'), repositories_path, class: 'nav-link link-dark'
     ul.nav
       .nav-item.me-2.d-flex
         - if signed_in?
