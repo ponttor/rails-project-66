@@ -1,0 +1,23 @@
+ru:
+  repositories:
+    links:
+      new: Добавить
+      check: Проверить
+      create: Создать репозиторий
+    attributes:
+      name: Название
+      language: Язык
+      created_at: Дата создания
+      updated_at: Дата обновления
+    table:
+      header:
+        name: Название
+        language: Язык
+        status: Статус последней проверки
+    checks:
+      table:
+        header:
+          aasm_state: Статус
+          commit_id: ID коммита
+          is_successful: Проверка пройдена?
+          created_at: Дата создания
