@@ -1,0 +1,11 @@
+table.table.table-hover.mb-5
+  thead
+    tr
+      th
+        = t('.Message')
+      th
+        = t('.rule_id')
+      th
+        = t('.Line:Column')
+  tbody
+    == render partial: 'src_file', collection: @check.check_results, locals: { check: @check }

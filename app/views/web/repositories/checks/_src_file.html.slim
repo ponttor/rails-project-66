@@ -1,0 +1,11 @@
+tr
+  td[colspan="3"]
+    = link_to src_file['filePath'], "https://github.com/#{check.repository.full_name}/tree/#{check.commit_id}/bin/bundle"
+- src_file['messages'].each do |message|
+  tr
+    td
+      = message['message']
+    td
+      = message['ruleId']
+    td
+      = "#{message['line']}:#{message['column']}"

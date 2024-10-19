@@ -1,5 +1,14 @@
 one:
-  name: Repo Name
+  name: 'book_pages'
   user: one
-  language: english
+  language: 'ruby'
   github_id: 12222
+  full_name: "ponttor/book_pages"
+  "ssh_url": "git@github.com:ponttor/book_pages.git"
+  "clone_url": "https://github.com/ponttor/book_pages.git"
+
+# two:
+#   name: Repo Name 2
+#   user: one
+#   language: english
+#   github_id: 12223

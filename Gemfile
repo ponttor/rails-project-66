@@ -7,11 +7,15 @@ ruby '3.2.2'
 
 gem 'rails', '~> 7.0.8', '>= 7.0.8.3'
 
+gem 'aasm'
+gem 'fileutils'
+gem 'httparty'
 gem 'i18n'
 gem 'octokit'
 gem 'omniauth'
 gem 'omniauth-github'
 gem 'omniauth-rails_csrf_protection'
+gem 'open3'
 gem 'pg'
 gem 'pundit'
 gem 'sentry-rails'
@@ -49,4 +53,5 @@ end
 group :test do
   gem 'capybara'
   gem 'selenium-webdriver'
+  gem 'webmock'
 end

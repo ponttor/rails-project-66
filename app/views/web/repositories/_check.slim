@@ -1,0 +1,11 @@
+  tr
+    td = link_to check.id, repository_check_path(check.repository, check)
+    td = check.aasm.human_state
+    td
+      - if check.commit_id.present?
+        = link_to check.commit_id, "https://github.com/#{repository_full_name}/commit/#{check.commit_id}", target: "_blank"
+      - else
+        | No commit ID
+
+    td = check.passed ? t('repositories.checks.table.passed') : t('repositories.checks.table.failed')
+    td = check.created_at.strftime('%d %B %Y, %H:%M')

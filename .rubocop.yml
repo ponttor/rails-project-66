@@ -23,6 +23,7 @@ Style/IfUnlessModifier:
 
 Layout/LineLength:
   Enabled: false
+  # max: 120
 
 Metrics/AbcSize:
   Enabled: false

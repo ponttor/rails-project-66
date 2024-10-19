@@ -1,21 +1,21 @@
 .container
   .p-4.align-items-center.border.shadow.bg-white.rounded-3
     .mb-4
-      h1 = @repository.name
+      h1 = @repository.full_name
 
-    = link_to t('repositories.links.check'), repository_path(@repository), class: 'btn btn-primary mb-4'
+    = link_to t('repositories.links.check'), repository_checks_path(@repository), data: { turbo_method: :post }, class: 'btn btn-primary mb-4'
     p
       strong.me-2 = t('repositories.attributes.name')
-      = @repository.name
+      = @repository.full_name
     p
       strong.me-2 = t('repositories.attributes.language')
       = @repository.language
     p
       strong.me-2 = t('repositories.attributes.created_at')
-      = @repository.created_at
+      = @repository.created_at.strftime('%d %B %Y, %H:%M')
     p
       strong.me-2 = t('repositories.attributes.updated_at')
-      = @repository.updated_at
+      = @repository.updated_at.strftime('%d %B %Y, %H:%M')
     hr 
     table.table.table-striped
       thead
@@ -23,13 +23,7 @@
           th = ''
           th = t('repositories.checks.table.header.aasm_state')
           th = t('repositories.checks.table.header.commit_id')
-          th = t('repositories.checks.table.header.is_successful')
+          th = t('repositories.checks.table.header.is_passed')
           th = t('repositories.checks.table.header.created_at')
       tbody
-        - @checks&.each do |check|
-          tr
-            td = link_to check.id, repository_check_path(@repository, check)
-            td = check.aasm.human_state
-            td = link_to_check_commit(check) if check.commit_id
-            td = t(check.passed)
-            td = check.created_at
+        == render partial: 'check', collection: @repository.checks, locals: { repository_full_name: @repository.full_name }

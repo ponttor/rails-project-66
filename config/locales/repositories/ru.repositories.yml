@@ -19,5 +19,5 @@ ru:
         header:
           aasm_state: Статус
           commit_id: ID коммита
-          is_successful: Проверка пройдена?
+          is_passed: Проверка пройдена?
           created_at: Дата создания

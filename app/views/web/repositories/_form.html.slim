@@ -1,4 +1,4 @@
-= simple_form_for repository do |f|
+= simple_form_for repository, url: repositories_path, method: :post do |f|
   - if repository.errors.any?
     div style='color: red'
       h2 = t('repositories.errors.create', count: repository.errors.count)
@@ -6,6 +6,6 @@
         - repository.errors.each do |error|
           li = error.full_message
   div
-    = f.input :github_id, collection: repositories, input_html: { class: 'form-control' }, label_html: { class: 'form-label mt-1 mb-0' }, required: true
+    = f.input :github_id, collection: @repositories, input_html: { class: 'form-control' }, label_html: { class: 'form-label mt-1 mb-0' }, required: true
   div
     = f.submit t('repositories.links.create'), class: 'btn btn-primary mb-4 mt-2'

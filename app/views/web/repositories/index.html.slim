@@ -14,4 +14,4 @@
             tr
               td = link_to repository.name, repository
               td = repository.language
-              td = false
+              td = repository.checks&.last&.passed.nil? ? 'no checks' : repository.checks.last.passed

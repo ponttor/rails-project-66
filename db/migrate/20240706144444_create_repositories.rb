@@ -9,6 +9,7 @@ class CreateRepositories < ActiveRecord::Migration[7.0]
       t.string :language
       t.string :clone_url
       t.string :ssh_url
+      t.string :commit_id
       t.references :user, foreign_key: true
 
       t.timestamps

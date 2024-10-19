@@ -29,5 +29,10 @@
 # To learn more, please read the Rails Internationalization guide
 # available at https://guides.rubyonrails.org/i18n.html.
 
-en:
-  hello: "Hello world"
+ru:
+  time:
+    formats:
+      default: "%d.%m.%Y %H:%M"
+  date:
+    formats:
+      default: "%d.%m.%Y"

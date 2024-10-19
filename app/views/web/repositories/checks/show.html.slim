@@ -1,0 +1,10 @@
+.container
+  .p-4.align-items-center.border.shadow.bg-white.rounded-3
+    .mb-4
+      = link_to t('.go_to_repository'), repository_path(@check.repository), class: 'btn btn-primary mb-4'
+
+    h1 = t('.Check') + " #" + @check.id.to_s
+    
+    hr
+
+    == render 'check_details'
