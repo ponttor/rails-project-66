@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 class RepositoryCheckService
+  class FetchError < StandardError; end
+  class LintError < StandardError; end
+  class ParserError < StandardError; end
+
   REPOSITORY_CLONE_PATH = 'tmp/git_clones/'
 
   def initialize(check, repository)
@@ -26,6 +30,8 @@ class RepositoryCheckService
 
     @check.update(commit_id:)
     @check.complete_fetch!
+  rescue FetchError => e
+    raise "Failed to fetch repository: #{e.message}"
   end
   # @check.commit_id = fetch_repo_data.call(@repository, @repository_path)
 
@@ -35,6 +41,8 @@ class RepositoryCheckService
     @check.complete_check!
 
     parse_results(json_string)
+  rescue LintError => e
+    raise "Lint check failed: #{e.message}"
   end
 
   def parse_results(json_string)
@@ -47,12 +55,11 @@ class RepositoryCheckService
       offenses_count:,
       passed: offenses_count.zero?
     )
+  rescue ParserError => e
+    raise "Failed to parse lint results: #{e.message}"
   end
 
   def finalize_check
-    Rails.logger.debug '********************************'
-    Rails.logger.debug @check
-    Rails.logger.debug '********************************'
     @check.finish!
   end
 end

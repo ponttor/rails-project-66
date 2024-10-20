@@ -2,28 +2,28 @@ table.table
   tbody
     tr
       td
-        = t('.checked_at')
+        = t('checks.results.checked_at')
       td
         = l(@check.updated_at.localtime)
     tr
       td
-        = t('.Status')
+        = t('checks.results.status')
       td
         = t("repo_check_states.#{@check.state}")
     tr
       td
-        = t('.check_passed?')
+        = t('checks.results.check_passed?')
       td
         = @check.passed
     tr
       td
-        = t('.offenses_count')
+        = t('checks.results.offenses_count')
       td
         = @check.offenses_count
     tr
       td
-        = t('.commit_id')
+        = t('checks.results.commit_id')
       td
         = link_to "#{@check.commit_id}", "https://github.com/#{@check.repository.full_name}/commit/#{@check.commit_id}", target: "_blank"
   
-    == render partial: 'check_results', check: @check
+    == render partial: 'check_results', check: @check if @check.check_results.present?

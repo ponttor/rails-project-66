@@ -7,5 +7,5 @@
       - else
         | No commit ID
 
-    td = check.passed ? t('repositories.checks.table.passed') : t('repositories.checks.table.failed')
+    td = check.passed
     td = check.created_at.strftime('%d %B %Y, %H:%M')

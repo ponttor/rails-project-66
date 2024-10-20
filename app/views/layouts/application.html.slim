@@ -9,8 +9,9 @@ html
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
     = javascript_include_tag "application", "data-turbo-track": "reload", type: "module"
   body
-    = render 'layouts/shared/nav'
-    .container
-      = render 'layouts/shared/flash'
-    .mt-4  
+    .container.mb-4.d-flex.flex-wrap.align-items-center.py-2.border-bottom
+      = render 'layouts/shared/nav'
+    .container.my-4
+      = render 'layouts/shared/flash' 
+    .container.mt-4.border.shadow.bg-white.rounded-3.mb-4
       = yield

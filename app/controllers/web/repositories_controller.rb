@@ -18,8 +18,9 @@ module Web
     end
 
     def create
-      @repository = current_user.repositories.find_or_initialize_by(repository_params)
+      return if repository_params[:github_id].blank?
 
+      @repository = current_user.repositories.find_or_initialize_by(repository_params)
       repository_data = OktokitService.get_remote_repository(current_user, repository_params[:github_id])
 
       @repository.name = repository_data.name
@@ -29,7 +30,7 @@ module Web
       @repository.ssh_url = repository_data.ssh_url
 
       if @repository.save
-        redirect_to repositories_url, notice: t('repositories.create.success')
+        redirect_to repositories_url, flash: { success: t('repositories.flash.create') }
       else
         @repositories = OktokitService.get_remote_repositories(current_user)
         render :new, status: :unprocessable_entity

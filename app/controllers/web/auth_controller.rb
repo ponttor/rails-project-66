@@ -15,15 +15,15 @@ module Web
 
         existing_user.save
 
-        redirect_to root_path, flash: { success: t('.login_success') }
+        redirect_to root_path, flash: { success: t('auth.success') }
       else
-        redirect_to root_path, flash: { danger: t('.login_error') }
+        redirect_to root_path, flash: { danger: t('auth.error') }
       end
     end
 
     def destroy
       session[:user_id] = nil
-      redirect_to root_path, flash: { success: t('.bye') }
+      redirect_to root_path, flash: { success: t('auth.destroy') }
     end
 
     private

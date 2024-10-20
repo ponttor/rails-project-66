@@ -2,10 +2,10 @@ table.table.table-hover.mb-5
   thead
     tr
       th
-        = t('.Message')
+        = t('checks.results.message')
       th
-        = t('.rule_id')
+        = t('checks.results.rule_id')
       th
-        = t('.Line:Column')
+        = t('checks.results.line:column')
   tbody
     == render partial: 'src_file', collection: @check.check_results, locals: { check: @check }

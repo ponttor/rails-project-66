@@ -1,7 +1,5 @@
 ru:
   auth:
-    callback:
-      login_success: Добро пожаловать
-      login_error: Что-то не так
-    destroy:
-      bye: Бай бай!
+    success: Добро пожаловать!
+    destroy: До новых встреч!
+    error: Что-то пошло не так!

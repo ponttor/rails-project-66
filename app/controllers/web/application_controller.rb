@@ -10,7 +10,7 @@ module Web
     private
 
     def user_not_authorized
-      redirect_to root_path, flash: { warning: t('auth_error') }
+      redirect_to root_path, flash: { warning: t('errors.auth') }
     end
   end
 end

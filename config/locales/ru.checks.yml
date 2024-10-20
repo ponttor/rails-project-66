@@ -1,0 +1,20 @@
+ru:
+  checks:
+    repository:
+      no_checks: Не было проверок
+    table:
+      header:
+        aasm_state: Статус
+        commit_id: ID коммита
+        is_passed: Проверка пройдена?
+        created_at: Дата создания
+    results:
+      checked_at: Дата создания
+      status: Статус
+      check_passed: Проверка пройдена?
+      offenses_count: Количество ошибок
+      commit_id: ID коммита
+      message: Сообщение
+      rule_id: Идентификатор правила
+      line:column: Строка:Колонка
+

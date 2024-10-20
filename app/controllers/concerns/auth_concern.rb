@@ -12,6 +12,6 @@ module AuthConcern
   def authenticate_user!
     return if signed_in?
 
-    redirect_to root_path, flash: { warning: t('.auth_error') }
+    redirect_to root_path, flash: { warning: t('errors.auth') }
   end
 end

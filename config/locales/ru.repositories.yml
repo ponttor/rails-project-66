@@ -1,0 +1,22 @@
+ru:
+  repositories: 
+    check_title: Проверка
+    flash:
+      create: Успех!
+    buttons:
+      new: Добавить Репозиторий
+      create: Создать Репозиторий
+      check: Проверить Репозиторий
+      to_repo: Перейти к Репозиторию
+    errors:
+      create: Ошибка при создании
+    attributes:
+      name: Название
+      language: Язык
+      created_at: Дата создания
+      updated_at: Дата обновления
+    table:
+      header:
+        name: Название
+        language: Язык
+        status: Статус последней проверки

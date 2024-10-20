@@ -1,29 +1,28 @@
-.container
-  .p-4.align-items-center.border.shadow.bg-white.rounded-3
-    .mb-4
-      h1 = @repository.full_name
+.m-4
+  .mb-4
+    h1 = @repository.full_name
 
-    = link_to t('repositories.links.check'), repository_checks_path(@repository), data: { turbo_method: :post }, class: 'btn btn-primary mb-4'
-    p
-      strong.me-2 = t('repositories.attributes.name')
-      = @repository.full_name
-    p
-      strong.me-2 = t('repositories.attributes.language')
-      = @repository.language
-    p
-      strong.me-2 = t('repositories.attributes.created_at')
-      = @repository.created_at.strftime('%d %B %Y, %H:%M')
-    p
-      strong.me-2 = t('repositories.attributes.updated_at')
-      = @repository.updated_at.strftime('%d %B %Y, %H:%M')
-    hr 
-    table.table.table-striped
-      thead
-        tr
-          th = ''
-          th = t('repositories.checks.table.header.aasm_state')
-          th = t('repositories.checks.table.header.commit_id')
-          th = t('repositories.checks.table.header.is_passed')
-          th = t('repositories.checks.table.header.created_at')
-      tbody
-        == render partial: 'check', collection: @repository.checks, locals: { repository_full_name: @repository.full_name }
+  = link_to t('repositories.buttons.check'), repository_checks_path(@repository), data: { turbo_method: :post }, class: 'btn btn-primary mb-4'
+  p
+    strong.me-2 = t('repositories.attributes.name')
+    = @repository.full_name
+  p
+    strong.me-2 = t('repositories.attributes.language')
+    = @repository.language
+  p
+    strong.me-2 = t('repositories.attributes.created_at')
+    = @repository.created_at.strftime('%d %B %Y, %H:%M')
+  p
+    strong.me-2 = t('repositories.attributes.updated_at')
+    = @repository.updated_at.strftime('%d %B %Y, %H:%M')
+  hr 
+  table.table.table-striped
+    thead
+      tr
+        th = ''
+        th = t('checks.table.header.aasm_state')
+        th = t('checks.table.header.commit_id')
+        th = t('checks.table.header.is_passed')
+        th = t('checks.table.header.created_at')
+    tbody
+      == render partial: 'check', collection: @repository.checks, locals: { repository_full_name: @repository.full_name }
