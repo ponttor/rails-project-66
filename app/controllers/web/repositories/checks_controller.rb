@@ -10,12 +10,9 @@ class Web::Repositories::ChecksController < Web::ApplicationController
     @check.save!
 
     RepositoryCheckService.new(@check, current_repository).perform_check
-    # RepositoryCheckService.new(@check, current_repository).perform_check
   rescue StandardError => e
     flash.now[:danger] = "Failed to perform check: #{e.message}"
     redirect_to repository_path(current_repository)
-    # render :create, status: :unprocessable_entity
-    # render json: { error: e.message }, status: :unprocessable_entity
   end
 
   private
