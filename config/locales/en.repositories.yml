@@ -1,0 +1,22 @@
+en:
+  repositories: 
+    check_title: Check
+    flash:
+      create: Success!
+    buttons:
+      new: Add Repository
+      create: Create Repository
+      check: Check Repository
+      to_repo: Go to Repository
+    errors:
+      create: Error creating repository
+    attributes:
+      name: Name
+      language: Language
+      created_at: Creation Date
+      updated_at: Updated Date
+    table:
+      header:
+        name: Name
+        language: Language
+        status: Last Check Status

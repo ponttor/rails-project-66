@@ -1,0 +1,19 @@
+en:
+  checks:
+    repository:
+      no_checks: No checks performed
+    table:
+      header:
+        aasm_state: Status
+        commit_id: Commit ID
+        is_passed: Check passed?
+        created_at: Creation date
+    results:
+      checked_at: Checked at
+      status: Status
+      check_passed: Check passed?
+      offenses_count: Offense count
+      commit_id: Commit ID
+      message: Message
+      rule_id: Rule ID
+      line:column: Line:Column

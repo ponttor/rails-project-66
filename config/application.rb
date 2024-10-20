@@ -21,6 +21,6 @@ module RailsProject66
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
     I18n.load_path += Dir["#{File.expand_path('config/locales')}/*.yml"]
-    I18n.default_locale = :ru
+    I18n.default_locale = :en
   end
 end
