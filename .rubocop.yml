@@ -9,7 +9,7 @@ AllCops:
     - 'db/migrate/**'
     - 'vendor/**/*'
     - 'node_modules/**/*'
-    # - 'tmp/**/*'
+    - 'tmp/**/*'
   SuggestExtensions: false
 
 Rails:

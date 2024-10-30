@@ -9,7 +9,7 @@ class Web::Repositories::ChecksController < Web::ApplicationController
     @check = current_repository.checks.new
     @check.save!
 
-    RepositoryCheckService.new(@check, current_repository).perform_check
+    GitCloneService.new(@check, current_repository).perform_check
   rescue StandardError => e
     flash.now[:danger] = "Failed to perform check: #{e.message}"
     redirect_to repository_path(current_repository)

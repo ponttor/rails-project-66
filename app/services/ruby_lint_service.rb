@@ -6,9 +6,7 @@ class RubyLintService
   end
 
   def perform_ruby_lint
-    # byebug
     stdout, = run_programm("bundle exec rubocop #{@path} --format=json --config ./.rubocop.yml")
-    # stdout, _ = run_programm("bundle exec rubocop --format json #{@path}")
     stdout
   end
 
@@ -22,29 +20,40 @@ class RubyLintService
     rubocop_files_results
       .filter { |file_result| file_result['offenses'].present? }
       .each do |file_result|
-        src_file = {}
-        src_file['filePath'] = file_result['path'].partition(path).last
-        src_file['messages'] = []
-
-        file_result['offenses'].each do |offense|
-          violation = {
-            'message' => offense['message'],
-            'ruleId' => offense['cop_name'],
-            'line' => offense['location']['line'],
-            'column' => offense['location']['column']
-          }
-
-          src_file['messages'] << violation
-          offenses_count += 1
-        end
-
+        src_file, file_offenses_count = process_file_result(file_result, path)
         check_results << src_file
+        offenses_count += file_offenses_count
       end
 
     [check_results, offenses_count]
   end
 
   private
+
+  def self.process_file_result(file_result, path)
+    src_file = { 'filePath' => extract_relative_path(file_result['path'], path), 'messages' => [] }
+    offenses_count = 0
+
+    file_result['offenses'].each do |offense|
+      src_file['messages'] << format_offense(offense)
+      offenses_count += 1
+    end
+
+    [src_file, offenses_count]
+  end
+
+  def self.extract_relative_path(full_path, base_path)
+    full_path.partition(base_path).last
+  end
+
+  def self.format_offense(offense)
+    {
+      'message' => offense['message'],
+      'ruleId' => offense['cop_name'],
+      'line' => offense['location']['line'],
+      'column' => offense['location']['column']
+    }
+  end
 
   def run_programm(command)
     stdout, exit_status = Open3.popen3(command) do |_stdin, stdout, _stderr, wait_thr|

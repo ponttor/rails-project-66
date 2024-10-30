@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
-class GitRepositoryService
+GITHUB_API_BASE_URL = 'https://api.github.com/repos/'
+
+class GitCloneService
   class GitFetchError < StandardError; end
 
   def initialize(repository, path)
@@ -10,13 +12,11 @@ class GitRepositoryService
 
   def fetch_repository
     FileUtils.rm_rf(@path)
-    _, exit_status = run_programm "git clone #{@repository.clone_url} #{@path}"
+    output, exit_status = run_programm "git clone #{@repository.clone_url} #{@path}"
 
-    raise 'Failed to clone repository' unless exit_status.zero?
+    raise GitFetchError, "Failed to clone repository: #{output}" unless exit_status.zero?
 
     fetch_last_commit_id
-  rescue GitFetchError => e
-    raise "Failed to clone repository: #{e.message}"
   end
 
   private
@@ -29,7 +29,7 @@ class GitRepositoryService
   end
 
   def fetch_last_commit_id
-    last_commit = HTTParty.get("https://api.github.com/repos/#{@repository.full_name}/commits").first
+    last_commit = HTTParty.get("#{GITHUB_API_BASE_URL}#{@repository.full_name}/commits").first
     last_commit['sha'].slice(0, 7)
   end
 end

@@ -26,18 +26,17 @@ class RepositoryCheckService
 
   def fetch_repository
     @check.start_fetch!
-    commit_id = GitRepositoryService.new(@repository, @repository_path).fetch_repository
+    commit_id = ApplicationContainer[:fetch_repository].call(@repository, @repository_path)
 
     @check.update(commit_id:)
     @check.complete_fetch!
   rescue FetchError => e
     raise "Failed to fetch repository: #{e.message}"
   end
-  # @check.commit_id = fetch_repo_data.call(@repository, @repository_path)
 
   def run_lint_check
     @check.start_check!
-    json_string = RubyLintService.new(@repository_path).perform_ruby_lint
+    json_string = ApplicationContainer[:lint_check].call(@repository_path)
     @check.complete_check!
 
     parse_results(json_string)

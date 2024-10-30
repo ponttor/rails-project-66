@@ -21,13 +21,8 @@ module Web
       return if repository_params[:github_id].blank?
 
       @repository = current_user.repositories.find_or_initialize_by(repository_params)
-      repository_data = OktokitService.get_remote_repository(current_user, repository_params[:github_id])
 
-      @repository.name = repository_data.name
-      @repository.full_name = repository_data.full_name
-      @repository.language = repository_data.language.downcase
-      @repository.clone_url = repository_data.clone_url
-      @repository.ssh_url = repository_data.ssh_url
+      set_repository_data
 
       if @repository.save
         redirect_to repositories_url, flash: { success: t('repositories.flash.create') }
@@ -41,6 +36,20 @@ module Web
 
     def repository_params
       params.require(:repository).permit(:github_id)
+    end
+
+    def set_repository_data
+      repository_data = OktokitService.get_repository_data(current_user, repository_params[:github_id])
+
+      assign_repository_data(repository_data)
+    end
+
+    def assign_repository_data(repository_data)
+      @repository.name = repository_data.name
+      @repository.full_name = repository_data.full_name
+      @repository.language = repository_data.language.downcase
+      @repository.clone_url = repository_data.clone_url
+      @repository.ssh_url = repository_data.ssh_url
     end
   end
 end
