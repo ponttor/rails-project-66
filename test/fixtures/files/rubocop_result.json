@@ -1,0 +1,17 @@
+{
+  "files": [
+    {
+      "path": "/path/to/project/app/controllers/application_controller.rb",
+      "offenses": [
+        {
+          "cop_name": "Metrics/MethodLength",
+          "message": "Method has too many lines. [15/10]",
+          "location": {
+            "line": 10,
+            "column": 5
+          }
+        }
+      ]
+    }
+  ]
+}
