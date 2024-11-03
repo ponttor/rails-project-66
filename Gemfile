@@ -26,6 +26,12 @@ gem 'slim-rails'
 gem 'sprockets-rails'
 gem 'stackprof'
 
+gem 'dry-auto_inject', '~> 1.0', '>= 1.0.1'
+gem 'dry-container', '~> 0.11.0'
+
+gem 'rubocop-performance', require: false
+gem 'rubocop-rails', require: false
+
 gem 'bootsnap', require: false
 gem 'cssbundling-rails'
 gem 'jbuilder'
@@ -41,12 +47,13 @@ group :development, :test do
   gem 'debug', platforms: %i[mri mingw x64_mingw]
   gem 'dotenv'
   gem 'faker'
+  gem 'simplecov'
   gem 'sqlite3', '~> 1.4'
 end
 
 group :development do
   gem 'rubocop', '~> 1.64', require: false
-  gem 'rubocop-rails', require: false
+
   gem 'web-console'
 end
 

@@ -1,0 +1,15 @@
+extends:
+  - plugin:react/recommended
+  - airbnb
+
+# parser: '@babel/eslint-parser'
+parserOptions:
+  ecmaVersion: latest
+  sourceType: module
+
+rules:
+  indent: [error, 2]
+  quotes: [error, 'single']
+  semi: [error, 'never']
+  'no-console': [error]
+  'max-len': [error, { code: 80 }]

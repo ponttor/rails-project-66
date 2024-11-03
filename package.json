@@ -12,7 +12,11 @@
     "nodemon": "^3.1.4",
     "postcss": "^8.4.38",
     "postcss-cli": "^11.0.0",
-    "sass": "^1.77.6"
+    "sass": "^1.77.6",
+    "eslint": "^7.32.0 || ^8.2.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-plugin-eslint-config": "^2.0.0",
+    "eslint-plugin-react-app": "^6.2.2"
   },
   "scripts": {
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --format=esm --outdir=app/assets/builds --public-path=/assets",

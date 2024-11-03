@@ -99,7 +99,17 @@ GEM
     debug (1.9.2)
       irb (~> 1.10)
       reline (>= 0.3.8)
+    docile (1.4.1)
     dotenv (3.1.2)
+    dry-auto_inject (1.0.1)
+      dry-core (~> 1.0)
+      zeitwerk (~> 2.6)
+    dry-container (0.11.0)
+      concurrent-ruby (~> 1.0)
+    dry-core (1.0.2)
+      concurrent-ruby (~> 1.0)
+      logger
+      zeitwerk (~> 2.6)
     erubi (1.13.0)
     faker (3.4.1)
       i18n (>= 1.8.11, < 2)
@@ -257,6 +267,9 @@ GEM
       unicode-display_width (>= 2.4.0, < 3.0)
     rubocop-ast (1.31.3)
       parser (>= 3.3.1.0)
+    rubocop-performance (1.22.1)
+      rubocop (>= 1.48.1, < 2.0)
+      rubocop-ast (>= 1.31.1, < 2.0)
     rubocop-rails (2.25.0)
       activesupport (>= 4.2.0)
       rack (>= 1.1)
@@ -282,6 +295,12 @@ GEM
     simple_form (5.3.1)
       actionpack (>= 5.2)
       activemodel (>= 5.2)
+    simplecov (0.22.0)
+      docile (~> 1.1)
+      simplecov-html (~> 0.11)
+      simplecov_json_formatter (~> 0.1)
+    simplecov-html (0.13.1)
+    simplecov_json_formatter (0.1.4)
     slim (5.2.1)
       temple (~> 0.10.0)
       tilt (>= 2.1.0)
@@ -352,6 +371,8 @@ DEPENDENCIES
   cssbundling-rails
   debug
   dotenv
+  dry-auto_inject (~> 1.0, >= 1.0.1)
+  dry-container (~> 0.11.0)
   faker
   fileutils
   httparty
@@ -369,11 +390,13 @@ DEPENDENCIES
   rails (~> 7.0.8, >= 7.0.8.3)
   redis (~> 4.0)
   rubocop (~> 1.64)
+  rubocop-performance
   rubocop-rails
   selenium-webdriver
   sentry-rails
   sentry-ruby
   simple_form
+  simplecov
   slim-rails
   slim_lint
   sprockets-rails

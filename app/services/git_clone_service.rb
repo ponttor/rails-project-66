@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-GITHUB_API_BASE_URL = 'https://api.github.com/repos/'
-
 class GitCloneService
   class GitFetchError < StandardError; end
+
+  GITHUB_API_BASE_URL = 'https://api.github.com/repos/'
 
   def initialize(repository, path)
     @repository = repository

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 module AuthConcern
+  class NotAuthenticatedError < StandardError; end
+
   def current_user
     @current_user ||= User.find_by(id: session[:user_id])
   end
@@ -12,6 +14,6 @@ module AuthConcern
   def authenticate_user!
     return if signed_in?
 
-    redirect_to root_path, flash: { warning: t('errors.auth') }
+    raise NotAuthenticatedError
   end
 end

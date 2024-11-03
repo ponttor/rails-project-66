@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class OktokitService
+class OctokitService
   class << self
     def get_remote_repositories(current_user)
       client = get_client(current_user)

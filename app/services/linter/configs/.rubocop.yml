@@ -1,5 +1,6 @@
 require:
   - rubocop-rails
+  - rubocop-performance
 
 AllCops:
   NewCops: enable
@@ -9,7 +10,6 @@ AllCops:
     - 'db/migrate/**'
     - 'vendor/**/*'
     - 'node_modules/**/*'
-    - 'tmp/**/*'
   SuggestExtensions: false
 
 Rails:
