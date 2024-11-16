@@ -13,9 +13,11 @@ class Web::Repositories::ChecksController < Web::ApplicationController
     authorize @check
     @check.save!
 
-    LintService.new(@check, current_repository).perform_check
+    LintCheckJob.perform_now(@check.id, current_repository.id)
+    flash[:info] = t('flash.checks.job_started')
   rescue StandardError => e
-    flash.now[:danger] = "Failed to perform check: #{e.message}"
+    @check.fail!
+    flash[:danger] = t('flash.checks.create_error', message: e.message)
     redirect_to repository_path(current_repository)
   end
 

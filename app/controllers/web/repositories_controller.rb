@@ -1,59 +1,56 @@
 # frozen_string_literal: true
 
-module Web
-  class RepositoriesController < Web::ApplicationController
-    before_action :authenticate_user!
+class Web::RepositoriesController < Web::ApplicationController
+  before_action :authenticate_user!
 
-    def index
-      @repositories = current_user.repositories
-      authorize Repository
-    end
+  def index
+    @repositories = current_user.repositories
+    authorize Repository
+  end
 
-    def show
-      @repository = current_user.repositories.find(params[:id])
-      authorize @repository
-    end
+  def show
+    @repository = current_user.repositories.find(params[:id])
+    authorize @repository
+  end
 
-    def new
-      @repository = Repository.new
-      authorize @repository
-      @repositories = OctokitService.get_remote_repositories(current_user)
-    end
+  def new
+    @repository = Repository.new
+    authorize @repository
+    @repositories = OctokitService.get_remote_repositories(current_user)
+  end
 
-    def create
-      return if repository_params[:github_id].blank?
+  def create
+    @repository = current_user.repositories.find_or_initialize_by(repository_params)
+    authorize @repository
 
-      @repository = current_user.repositories.find_or_initialize_by(repository_params)
-      authorize @repository
+    set_repository_data
+    @repository.save!
+    redirect_to repositories_path and return
+    flash.now[:info] = t('flash.repositories.create')
+    GithubWebhookService.create(@repository.id)
+  rescue StandardError => _e
+    flash.now[:danger] = t('flash.repositories.create_error')
+    @repositories = OctokitService.get_remote_repositories(current_user)
+    render :new, status: :unprocessable_entity
+  end
 
-      set_repository_data
+  private
 
-      if @repository.save
-        redirect_to repositories_url, flash: { success: t('repositories.flash.create') }
-      else
-        @repositories = OctokitService.get_remote_repositories(current_user)
-        render :new, status: :unprocessable_entity
-      end
-    end
+  def repository_params
+    params.require(:repository).permit(:github_id)
+  end
 
-    private
+  def set_repository_data
+    repository_data = OctokitService.get_repository_data(current_user, repository_params[:github_id])
 
-    def repository_params
-      params.require(:repository).permit(:github_id)
-    end
+    assign_repository_data(repository_data)
+  end
 
-    def set_repository_data
-      repository_data = OctokitService.get_repository_data(current_user, repository_params[:github_id])
-
-      assign_repository_data(repository_data)
-    end
-
-    def assign_repository_data(repository_data)
-      @repository.name = repository_data[:name]
-      @repository.full_name = repository_data[:full_name]
-      @repository.language = repository_data[:language].downcase
-      @repository.clone_url = repository_data[:clone_url]
-      @repository.ssh_url = repository_data[:ssh_url]
-    end
+  def assign_repository_data(repository_data)
+    @repository.name = repository_data[:name]
+    @repository.ssh_url = repository_data[:ssh_url]
+    @repository.full_name = repository_data[:full_name]
+    @repository.clone_url = repository_data[:clone_url]
+    @repository.language = repository_data[:language].downcase
   end
 end

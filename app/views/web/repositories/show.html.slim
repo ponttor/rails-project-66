@@ -11,18 +11,19 @@
     = @repository.language
   p
     strong.me-2 = t('repositories.attributes.created_at')
-    = @repository.created_at.strftime('%d %B %Y, %H:%M')
+    = l(@repository.created_at, format: :long)
   p
     strong.me-2 = t('repositories.attributes.updated_at')
-    = @repository.updated_at.strftime('%d %B %Y, %H:%M')
-  hr 
-  table.table.table-striped
-    thead
-      tr
-        th = ''
-        th = t('checks.table.header.aasm_state')
-        th = t('checks.table.header.commit_id')
-        th = t('checks.table.header.is_passed')
-        th = t('checks.table.header.created_at')
-    tbody
-      == render partial: 'check', collection: @repository.checks, locals: { repository_full_name: @repository.full_name }
+    = l(@repository.updated_at, format: :long)
+  hr
+  - if @repository.checks.any?
+    table.table.table-striped
+      thead
+        tr
+          th = ''
+          th = t('checks.table.header.aasm_state')
+          th = t('checks.table.header.commit_id')
+          th = t('checks.table.header.is_passed')
+          th = t('checks.table.header.created_at')
+      tbody
+        == render partial: 'check', collection: @repository.checks.order(created_at: :desc), locals: { repository_full_name: @repository.full_name }

@@ -1,5 +1,11 @@
-created:
+ruby_created:
   commit_id: 1
   repository: ruby
+  state: created
+  passed: false
+
+js_created:
+  commit_id: 2
+  repository: javascript
   state: created
   passed: false

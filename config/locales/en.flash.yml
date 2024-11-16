@@ -1,0 +1,15 @@
+en:
+  flash:
+    auth:
+      success: "You have successfully signed in"
+      error: "Authentication failed Please try again"
+      destroy: "You have successfully signed out"
+    application:
+      not_authorized: "You are not authorized for this action"
+      not_authenticated: "You need to sign in to continue"
+    repositories:
+      create: "Repository created successfully"
+      create_error: "Failed to create repository Please check the input and try again"
+    checks:
+      create_error: "Failed to create check"
+      job_started: "Job started successfully"

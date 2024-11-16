@@ -1,21 +1,19 @@
 # frozen_string_literal: true
 
-module Web
-  class ApplicationController < ApplicationController
-    include AuthConcern
-    include Pundit::Authorization
+class Web::ApplicationController < ApplicationController
+  include AuthConcern
+  include Pundit::Authorization
 
-    rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
-    rescue_from NotAuthenticatedError, with: :user_not_authenticated
+  rescue_from Pundit::NotAuthorizedError, with: :not_authorized
+  rescue_from NotAuthenticatedError, with: :not_authenticated
 
-    private
+  private
 
-    def user_not_authorized
-      redirect_to root_path, flash: { warning: t('errors.auth') }
-    end
+  def not_authorized
+    redirect_to root_path, flash: { warning: t('flash.application.not_authorized') }
+  end
 
-    def user_not_authenticated
-      redirect_to root_path, alert: t('user_not_authenticated')
-    end
+  def not_authenticated
+    redirect_to root_path, flash: { warning: t('flash.application.not_authenticated') }
   end
 end

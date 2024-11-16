@@ -13,14 +13,16 @@
 ActiveRecord::Schema[7.0].define(version: 2024_09_29_144455) do
   create_table "repositories", force: :cascade do |t|
     t.string "name"
-    t.integer "github_id"
+    t.integer "github_id", null: false
     t.string "full_name"
     t.string "language"
     t.string "clone_url"
     t.string "ssh_url"
+    t.string "commit_id"
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["github_id"], name: "index_repositories_on_github_id", unique: true
     t.index ["user_id"], name: "index_repositories_on_user_id"
   end
 
@@ -39,11 +41,12 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_29_144455) do
   create_table "users", force: :cascade do |t|
     t.string "nickname"
     t.string "name"
-    t.string "email"
+    t.string "email", null: false
     t.string "image_url"
     t.string "token"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
   end
 
   add_foreign_key "repositories", "users"

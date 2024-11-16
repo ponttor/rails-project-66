@@ -1,39 +1,41 @@
 # frozen_string_literal: true
 
-module Web
-  class AuthController < Web::ApplicationController
-    def callback
-      existing_user = User.find_or_create_by(email: auth[:info][:email])
-      if existing_user.persisted?
-        sign_in existing_user
+class Web::AuthController < Web::ApplicationController
+  OMNIAUTH_AUTH_KEY = 'omniauth.auth'
 
-        existing_user.nickname = auth[:info][:nickname]
-        existing_user.name = auth[:info][:name]
-        existing_user.email = auth[:info][:email]
-        existing_user.image_url = auth[:info][:image]
-        existing_user.token = auth[:credentials][:token] if auth[:credentials]
+  def callback
+    redirect_to root_path if signed_in?
 
-        existing_user.save
+    user = User.find_or_initialize_by(email: auth_params[:info][:email])
 
-        redirect_to root_path, flash: { success: t('auth.success') }
-      else
-        redirect_to root_path, flash: { danger: t('auth.error') }
-      end
-    end
+    return redirect_to root_path, flash: { danger: t('flash.auth.error') } unless update_user_info(user)
 
-    def destroy
-      session[:user_id] = nil
-      redirect_to root_path, flash: { success: t('auth.destroy') }
-    end
+    sign_in user
+    redirect_to root_path, flash: { success: t('flash.auth.success') }
+  end
 
-    private
+  def destroy
+    session[:user_id] = nil
+    redirect_to root_path, flash: { success: t('flash.auth.destroy') }
+  end
 
-    def auth
-      request.env['omniauth.auth']
-    end
+  private
 
-    def sign_in(user)
-      session[:user_id] = user.id
-    end
+  def auth_params
+    request.env[OMNIAUTH_AUTH_KEY]
+  end
+
+  def sign_in(user)
+    session[:user_id] = user.id
+  end
+
+  def update_user_info(user)
+    user.name = auth_params[:info][:name]
+    user.email = auth_params[:info][:email]
+    user.image_url = auth_params[:info][:image]
+    user.nickname = auth_params[:info][:nickname]
+    user.token = auth_params[:credentials][:token] if auth_params[:credentials]
+
+    user.save
   end
 end

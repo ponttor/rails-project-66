@@ -3,15 +3,11 @@
 require 'test_helper'
 require 'json'
 
-class Linter::BaseLintServiceTest < ActiveSupport::TestCase
-  setup do
-    @service = Linter::BaseLintService.new('/path/to/project')
-  end
-
+class Linter::RubyLintServiceTest < ActiveSupport::TestCase
   test 'should parse RuboCop lint results correctly' do
     rubocop_json = File.read('test/fixtures/files/rubocop_result.json')
 
-    check_results, offenses_count = @service.parse_lint_results(rubocop_json)
+    check_results, offenses_count = Linter::RubyLintService.parse_lint_results(rubocop_json, '')
 
     assert_equal 1, check_results.size
     assert_equal 1, offenses_count
@@ -25,7 +21,7 @@ class Linter::BaseLintServiceTest < ActiveSupport::TestCase
   test 'should return empty results for files without offenses' do
     rubocop_json_no_offences = File.read('test/fixtures/files/rubocop_result_no_offences.json')
 
-    check_results, offenses_count = @service.parse_lint_results(rubocop_json_no_offences)
+    check_results, offenses_count = Linter::RubyLintService.parse_lint_results(rubocop_json_no_offences, '')
 
     assert_empty check_results
     assert_equal 0, offenses_count

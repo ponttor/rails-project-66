@@ -3,6 +3,8 @@
 class LintService
   class UnsupportedLanguageError < StandardError; end
 
+  RUBY = 'ruby'
+  JAVASCRIPT = 'javascript'
   REPOSITORY_CLONE_PATH = 'tmp/git_clones/'
 
   def initialize(check, repository)
@@ -15,9 +17,6 @@ class LintService
     fetch_repository
     run_lint_check
     finalize_check
-  rescue StandardError => e
-    @check.fail!
-    raise e
   end
 
   private
@@ -33,18 +32,16 @@ class LintService
   def run_lint_check
     @check.start_check!
     lint_service = choose_lint_service
-    json_string = lint_service.perform_lint
-
+    json_string = lint_service.perform_lint(@repository_path)
     @check.complete_check!
-
     parse_results(json_string, lint_service)
   end
 
   def parse_results(json_string, lint_service)
     @check.start_parse!
-    check_results, offenses_count = lint_service.parse_lint_results(json_string)
-    @check.complete_parse!
 
+    check_results, offenses_count = lint_service.parse_lint_results(json_string, @repository_path)
+    @check.complete_parse!
     @check.update!(
       check_results:,
       offenses_count:,
@@ -57,12 +54,12 @@ class LintService
   end
 
   def choose_lint_service
-    language = @repository.language.downcase
+    language = @repository.language&.downcase
     case language
-    when 'ruby'
-      Linter::RubyLintService.new(@repository_path)
-    when 'javascript'
-      Linter::JavascriptLintService.new(@repository_path)
+    when RUBY
+      Linter::RubyLintService
+    when JAVASCRIPT
+      Linter::JavascriptLintService
     else
       raise UnsupportedLanguageError, "Unsupported language: #{language}"
     end

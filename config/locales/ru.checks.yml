@@ -1,7 +1,7 @@
 ru:
   checks:
     repository:
-      no_checks: Не было проверок
+      no_checks: Проверок еще не было
     table:
       header:
         aasm_state: Статус

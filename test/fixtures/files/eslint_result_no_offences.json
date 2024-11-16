@@ -1,0 +1,10 @@
+[
+  {
+    "filePath": "/path/to/project/app/javascript/main.js",
+    "messages": [],
+    "errorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0
+  }
+]

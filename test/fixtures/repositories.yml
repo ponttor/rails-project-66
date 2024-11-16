@@ -6,3 +6,21 @@ ruby:
   full_name: "ponttor/book_pages"
   "ssh_url": "git@github.com:ponttor/book_pages.git"
   "clone_url": "https://github.com/ponttor/book_pages.git"
+
+javascript:
+  name: 'book_pages'
+  user: one
+  language: 'javascript'
+  github_id: 1111
+  full_name: "ponttor/book_pages"
+  "ssh_url": "git@github.com:ponttor/book_pages.git"
+  "clone_url": "https://github.com/ponttor/book_pages.git"
+
+belongs_to_another_user:
+  name: 'book_pages'
+  user: two
+  language: 'javascript'
+  github_id: 3333
+  full_name: "ponttor/book_pages"
+  "ssh_url": "git@github.com:ponttor/book_pages.git"
+  "clone_url": "https://github.com/ponttor/book_pages.git"

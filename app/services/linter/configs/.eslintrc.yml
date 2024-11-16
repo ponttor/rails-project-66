@@ -2,7 +2,6 @@ extends:
   - plugin:react/recommended
   - airbnb
 
-# parser: '@babel/eslint-parser'
 parserOptions:
   ecmaVersion: latest
   sourceType: module

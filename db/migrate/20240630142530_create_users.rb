@@ -5,11 +5,13 @@ class CreateUsers < ActiveRecord::Migration[7.0]
     create_table :users do |t|
       t.string :nickname
       t.string :name
-      t.string :email
+      t.string :email, null: false
       t.string :image_url
       t.string :token
 
       t.timestamps
     end
+
+    add_index :users, :email, unique: true
   end
 end

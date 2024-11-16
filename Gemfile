@@ -8,6 +8,12 @@ ruby '3.2.2'
 gem 'rails', '~> 7.0.8', '>= 7.0.8.3'
 
 gem 'aasm'
+gem 'dry-auto_inject', '~> 1.0', '>= 1.0.1'
+gem 'dry-container', '~> 0.11.0'
+gem 'enumerize'
+# gem 'faraday', '~> 1.10'
+# gem 'faraday-multipart'
+# gem 'faraday-retry'
 gem 'fileutils'
 gem 'httparty'
 gem 'i18n'
@@ -20,14 +26,12 @@ gem 'pg'
 gem 'pundit'
 gem 'sentry-rails'
 gem 'sentry-ruby'
+# gem 'sidekiq'
 gem 'simple_form'
 gem 'slim_lint'
 gem 'slim-rails'
 gem 'sprockets-rails'
 gem 'stackprof'
-
-gem 'dry-auto_inject', '~> 1.0', '>= 1.0.1'
-gem 'dry-container', '~> 0.11.0'
 
 gem 'rubocop-performance', require: false
 gem 'rubocop-rails', require: false
@@ -59,6 +63,7 @@ end
 
 group :test do
   gem 'capybara'
+  gem 'rails-controller-testing'
   gem 'selenium-webdriver'
   gem 'webmock'
 end
