@@ -10,6 +10,7 @@ class LintCheckJob < ApplicationJob
     return if check.nil? || repository.nil?
 
     LintService.new(check, repository).perform_check
+    UserMailer.with(check:).failed.deliver_later unless check.passed
   rescue StandardError => e
     check.fail!
     Rails.logger.error("Lint check failed for repository #{repository.id}: #{e.message}")

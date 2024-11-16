@@ -17,6 +17,7 @@ class Web::Repositories::ChecksController < Web::ApplicationController
     flash[:info] = t('flash.checks.job_started')
   rescue StandardError => e
     @check.fail!
+    UserMailer.with(check:).failed.deliver_later
     flash[:danger] = t('flash.checks.create_error', message: e.message)
     redirect_to repository_path(current_repository)
   end

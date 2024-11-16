@@ -1,0 +1,8 @@
+en:
+  user_mailer:
+    failed:
+      subject: "Checking the /%{repo_full_name}/ repository with a linter failed!"
+      lines_html:
+      - Hi there, <b>%{user_name}</b>!
+      - "Last check for repository <a href=\"%{repo_link}\">%{repo_full_name}</a> has failed!"
+      - "Access your check report here: <a href=\"%{check_link}\">%{check_link}</a>"

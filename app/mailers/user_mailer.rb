@@ -3,19 +3,12 @@
 class UserMailer < ApplicationMailer
   default from: "#{Rails.application.class.module_parent_name}@checks.com"
 
-  def repo_check_failed
+  def failed
+    @user = repository.user
     @check = params[:check]
-    repo = @check.repository
-    @repo_full_name = "#{repo.owner_name}/#{repo.repo_name}"
-    @user = repo.user
-    mail(to: @user.email, subject: t('.subject', repo_full_name: @repo_full_name))
-  end
+    repository = @check.repositorysitory
+    @repository_full_name = "#{repository.owner_name}/#{repository.repository_name}"
 
-  def repo_check_verification_failed
-    @check = params[:check]
-    repo = @check.repository
-    @repo_full_name = "#{repo.owner_name}/#{repo.repo_name}"
-    @user = repo.user
-    mail(to: @user.email, subject: t('.subject', repo_full_name: @repo_full_name))
+    mail(to: @user.email, subject: t('.subject', repository_full_name: @repository_full_name))
   end
 end
