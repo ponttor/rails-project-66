@@ -51,20 +51,3 @@ module ActionDispatch
     end
   end
 end
-
-module ActiveStorage
-  class Blob
-    def self.fixture(filename:, **attributes)
-      blob = new(
-        filename:,
-        key: generate_unique_secure_token
-      )
-      io = Rails.root.join("test/fixtures/files/#{filename}").open
-      blob.unfurl(io)
-      blob.assign_attributes(attributes)
-      blob.upload_without_unfurling(io)
-
-      blob.attributes.transform_values { |values| values.is_a?(Hash) ? values.to_json : values }.compact.to_json
-    end
-  end
-end
