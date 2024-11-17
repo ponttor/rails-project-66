@@ -21,4 +21,6 @@ class Stub::OctokitClient
     repo[:id] = github_id
     repo
   end
+
+  def create_hook(*args, **kwargs); end
 end
