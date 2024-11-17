@@ -3,7 +3,7 @@
 require 'test_helper'
 require 'json'
 
-class Linter::RubyLintServiceTest < ActiveSupport::TestCase
+class Linter::RubyLintServiceTest < ActionDispatch::IntegrationTest
   test 'should parse RuboCop lint results correctly' do
     rubocop_json = File.read('test/fixtures/files/rubocop_result.json')
 

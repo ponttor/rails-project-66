@@ -3,7 +3,7 @@
 require 'test_helper'
 require 'json'
 
-class Linter::JavascriptLintServiceTest < ActiveSupport::TestCase
+class Linter::JavascriptLintServiceTest < ActionDispatch::IntegrationTest
   test 'should parse ESLint results correctly' do
     eslint_json = File.read('test/fixtures/files/eslint_result.json')
     eslint_json = eslint_json.strip.gsub(/\s+/, ' ')
