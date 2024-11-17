@@ -22,7 +22,7 @@ class Linter::JavascriptLintServiceTest < ActiveSupport::TestCase
   end
 
   test 'should return empty results for files without violations' do
-    eslint_json_no_violations = File.read('test/fixtures/files/eslint_result_no_offences.json')
+    eslint_json_no_violations = File.read('test/fixtures/files/eslint_result_no_offenses.json')
 
     check_results, number_of_violations = Linter::JavascriptLintService.parse_lint_results(eslint_json_no_violations, '')
 

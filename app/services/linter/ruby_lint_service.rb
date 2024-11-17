@@ -11,7 +11,7 @@ class Linter::RubyLintService
     data = JSON.parse(json_string)
     results = data['files']
 
-    number_of_offences = 0
+    number_of_offenses = 0
     check_results = []
 
     results
@@ -27,10 +27,10 @@ class Linter::RubyLintService
         offense['line'] = file_offense['location']['line']
         offense['column'] = file_offense['location']['column']
         src_file['messages'] << offense
-        number_of_offences += 1
+        number_of_offenses += 1
       end
       check_results << src_file
     end
-    [check_results, number_of_offences]
+    [check_results, number_of_offenses]
   end
 end

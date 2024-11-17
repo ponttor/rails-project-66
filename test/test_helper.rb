@@ -12,6 +12,10 @@ OmniAuth.config.test_mode = true
 
 module ActiveSupport
   class TestCase
+    setup do
+      ActiveJob::Base.queue_adapter.perform_enqueued_jobs = true
+      ActiveJob::Base.queue_adapter.perform_enqueued_at_jobs = true
+    end
     # Run tests in parallel with specified workers
     parallelize(workers: :number_of_processors)
 

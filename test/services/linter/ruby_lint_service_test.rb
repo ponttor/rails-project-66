@@ -19,9 +19,9 @@ class Linter::RubyLintServiceTest < ActiveSupport::TestCase
   end
 
   test 'should return empty results for files without offenses' do
-    rubocop_json_no_offences = File.read('test/fixtures/files/rubocop_result_no_offences.json')
+    rubocop_json_no_offenses = File.read('test/fixtures/files/rubocop_result_no_offenses.json')
 
-    check_results, offenses_count = Linter::RubyLintService.parse_lint_results(rubocop_json_no_offences, '')
+    check_results, offenses_count = Linter::RubyLintService.parse_lint_results(rubocop_json_no_offenses, '')
 
     assert_empty check_results
     assert_equal 0, offenses_count

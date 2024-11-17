@@ -10,7 +10,7 @@ class Linter::JavascriptLintService
   def self.parse_lint_results(json_string, temp_repo_path)
     results = JSON.parse(json_string)
 
-    number_of_offences = 0
+    number_of_offenses = 0
     check_results = []
 
     results
@@ -20,16 +20,16 @@ class Linter::JavascriptLintService
       src_file['filePath'] = file_result['filePath'].partition(temp_repo_path).last
       src_file['messages'] = []
       file_result['messages'].each do |message|
-        offence = {}
-        offence['message'] = message['message']
-        offence['ruleId'] = message['ruleId']
-        offence['line'] = message['line']
-        offence['column'] = message['column']
-        src_file['messages'] << offence
-        number_of_offences += 1
+        offense = {}
+        offense['message'] = message['message']
+        offense['ruleId'] = message['ruleId']
+        offense['line'] = message['line']
+        offense['column'] = message['column']
+        src_file['messages'] << offense
+        number_of_offenses += 1
       end
       check_results << src_file
     end
-    [check_results, number_of_offences]
+    [check_results, number_of_offenses]
   end
 end

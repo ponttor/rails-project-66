@@ -13,7 +13,7 @@ class Web::Repositories::ChecksController < Web::ApplicationController
     authorize @check
     @check.save!
 
-    LintCheckJob.perform_now(@check.id, current_repository.id)
+    LintCheckJob.perform_later(@check.id, current_repository.id)
     flash[:info] = t('flash.checks.job_started')
   rescue StandardError => e
     @check.fail!
