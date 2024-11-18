@@ -25,9 +25,11 @@ class Web::RepositoriesController < Web::ApplicationController
 
     set_repository_data
     @repository.save!
-    redirect_to repositories_path and return
+
     flash.now[:info] = t('flash.repositories.create')
+    LintCheckJob.perform_later(@repository.checks.create.id, @repository.id)
     GithubWebhookService.create(@repository.id)
+    redirect_to repositories_path
   rescue StandardError => _e
     flash.now[:danger] = t('flash.repositories.create_error')
     @repositories = OctokitService.get_remote_repositories(current_user)
