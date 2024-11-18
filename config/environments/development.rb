@@ -43,6 +43,17 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
+  config.action_mailer.default_url_options = { host: ENV.fetch('BASE_URL', nil) }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    user_name: ENV.fetch('MAIL_USERNAME', nil),
+    password: ENV.fetch('MAIL_PASSWORD', nil),
+    address: ENV.fetch('MAIL_HOST', nil),
+    domain: ENV.fetch('MAIL_HOST', nil),
+    port: ENV['SMTP_PORT'] || '25',
+    authentication: :cram_md5
+  }
+
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 

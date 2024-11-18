@@ -26,5 +26,15 @@ module RailsProject66
     routes.default_url_options = { host: ENV.fetch('BASE_URL', nil) }
     # config.active_job.queue_adapter = :sidekiq
     # config.active_job.queue_adapter = :async
+    #
+
+    config.exceptions_app = routes
+    routes
+      .default_url_options =
+      if Rails.env.test?
+        { host: 'http://127.0.0.1:3000' }
+      else
+        { host: ENV.fetch('BASE_URL', nil) }
+      end
   end
 end
