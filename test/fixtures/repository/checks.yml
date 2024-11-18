@@ -1,18 +1,18 @@
 ruby_created:
   commit_id: 1
   repository: ruby
-  state: created
+  aasm_state: created
   passed: false
 
 js_created:
   commit_id: 2
   repository: javascript
-  state: created
+  aasm_state: created
   passed: false
 
 ruby_good_check:
   repository: ruby
-  state: finished
+  aasm_state: finished
   passed: true
   offenses_count: 0
   commit_id: 3
@@ -20,7 +20,7 @@ ruby_good_check:
 
 javascript_good_check:
   repository: javascript
-  state: finished
+  aasm_state: finished
   passed: true
   offenses_count: 0
   commit_id: 3
@@ -28,14 +28,14 @@ javascript_good_check:
 
 javascript_bad_check:
   repository: javascript
-  state: finished
+  aasm_state: finished
   passed: false
   offenses_count: 6
   commit_id: 4
   check_results:
   - filePath: src/admin/app.example.js
     messages:
-    - message: Unexpected console statement.
+    - message: Unexpected console aasm_statement.
       ruleId: no-console
       line: 33
       column: 5
@@ -66,7 +66,7 @@ javascript_bad_check:
 
 ruby_bad_check:
   repository: ruby
-  state: finished
+  aasm_state: finished
   passed: false
   offenses_count: 3
   commit_id: 5702e5b

@@ -2,7 +2,7 @@ ru:
   activerecord:
     attributes:
       repository/check:
-        aasm_states:
+        states:
           Created: Создана
           In progress: В процессе
           Failed: Прервана

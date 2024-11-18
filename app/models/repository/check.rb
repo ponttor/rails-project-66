@@ -6,6 +6,6 @@ class Repository::Check < ApplicationRecord
   belongs_to :repository, inverse_of: :checks, class_name: 'Repository'
 
   def pending?
-    %w[finished failed].exclude?(state)
+    %w[finished failed].exclude?(aasm_state)
   end
 end

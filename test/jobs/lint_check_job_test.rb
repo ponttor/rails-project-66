@@ -12,7 +12,7 @@ class LintCheckJobTest < ActiveJob::TestCase
     LintCheckJob.perform_later(@check.id, @repository.id)
 
     @check.reload
-    assert_equal 'finished', @check.state
+    assert_equal 'finished', @check.aasm_state
     assert @check.passed?
   end
 end

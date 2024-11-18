@@ -9,7 +9,7 @@ table.table
       td
         = t('checks.results.status')
       td
-        = t("repo_check_states.#{@check.state}")
+        = t("repo_check_states.#{@check.aasm_state}")
     tr
       td
         = t('checks.results.check_passed?')

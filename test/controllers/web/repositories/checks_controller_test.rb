@@ -23,7 +23,7 @@ class Web::Repositories::ChecksControllerTest < ActionDispatch::IntegrationTest
       post repository_checks_url(@repository)
     end
 
-    assert_equal 'finished', @check.state
+    assert_equal 'finished', @check.aasm_state
     assert @check.passed?
 
     assert_not_nil @check.check_results

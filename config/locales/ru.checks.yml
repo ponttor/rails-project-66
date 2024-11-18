@@ -4,7 +4,7 @@ ru:
       no_checks: Проверок еще не было
     table:
       header:
-        aasm_state: Статус
+        state: Статус
         commit_id: ID коммита
         is_passed: Проверка пройдена?
         created_at: Дата создания

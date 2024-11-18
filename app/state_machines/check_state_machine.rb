@@ -6,7 +6,7 @@ module CheckStateMachine
   included do
     include AASM
 
-    aasm column: 'state' do
+    aasm do
       state :created, initial: true
       state :fetching, :fetched, :checking, :checked, :parsing, :parsed, :finished, :failed
 
