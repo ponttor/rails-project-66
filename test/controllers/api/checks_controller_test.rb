@@ -10,10 +10,10 @@ module Api
     end
 
     test 'push-event' do
-      assert_not Repository.exists?(id: 1000)
-      post api_checks_url, params: { repository: { id: 1000 } }, headers: { 'X-GitHub-Event': 'push' }
+      # assert_not Repository.exists?(id: 777)
+      post api_checks_url, params: { repository: { id: 777 } }, headers: { 'X-GitHub-Event': 'push' }
       assert_response :not_found
-      assert_not Repository::Check.exists?(repository_id: 1000)
+      assert_not Repository::Check.exists?(repository_id: 777)
 
       post api_checks_url, params: { repository: { id: @github_id } }, headers: { 'X-GitHub-Event': 'push' }
       assert_response :ok

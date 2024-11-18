@@ -1,0 +1,8 @@
+ru:
+  user_mailer:
+    failed:
+      subject: "Проверка репозитория /%{repository_full_name}/ линтером завершилась с ошибкой!"
+      lines_html:
+        - "Здравствуйте, <b>%{user_name}</b>!"
+        - "Последняя проверка репозитория <a href=\"%{repo_link}\">%{repo_full_name}</a> завершилась ошибкой!"
+        - "Посмотреть отчет проверки можно по ссылке: <a href=\"%{check_link}\">%{check_link}</a>"
