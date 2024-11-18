@@ -11,6 +11,9 @@ class Api::ChecksController < Api::ApplicationController
   def create
     event_type = request.headers[GITHUB_EVENT_HEADER]
 
+    pp '********************************'
+    pp event_type
+    pp '********************************'
     case event_type
     when PING_EVENT
       handle_ping_event
