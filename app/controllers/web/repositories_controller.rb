@@ -28,7 +28,7 @@ class Web::RepositoriesController < Web::ApplicationController
 
     flash.now[:info] = t('flash.repositories.create')
     LintCheckJob.perform_later(@repository.checks.create.id, @repository.id)
-    # GithubWebhookService.create(@repository.id)
+    GithubWebhookService.create(@repository.id)
     redirect_to repositories_path
   rescue StandardError => _e
     flash.now[:danger] = t('flash.repositories.create_error')

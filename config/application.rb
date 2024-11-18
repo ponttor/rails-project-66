@@ -32,7 +32,7 @@ module RailsProject66
     routes
       .default_url_options =
       if Rails.env.test?
-        { host: 'http://127.0.0.1:3000' }
+        { host: 'http://127.0.0.1:5000' }
       else
         { host: ENV.fetch('BASE_URL', nil) }
       end
