@@ -3,15 +3,15 @@ html
   head
     title
       | RailsProject66
-    meta[name="viewport" content="width=device-width,initial-scale=1"]
+    meta[name='viewport' content='width=device-width,initial-scale=1']
     = csrf_meta_tags
     = csp_meta_tag
-    = stylesheet_link_tag "application", "data-turbo-track": "reload"
-    = javascript_include_tag "application", "data-turbo-track": "reload", type: "module"
+    = stylesheet_link_tag 'application', 'data-turbo-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbo-track': 'reload', type: 'module'
   body
     .container.mb-4.d-flex.flex-wrap.align-items-center.py-2.border-bottom
       = render 'layouts/shared/nav'
     .container.my-4
-      = render 'layouts/shared/flash' 
+      = render 'layouts/shared/flash'
     .container.mt-4.border.shadow.bg-white.rounded-3.mb-4
       = yield

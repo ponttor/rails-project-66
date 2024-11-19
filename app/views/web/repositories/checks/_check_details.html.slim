@@ -24,6 +24,10 @@ table.table
       td
         = t('checks.results.commit_id')
       td
-        = link_to "#{@check.commit_id}", "https://github.com/#{@check.repository.full_name}/commit/#{@check.commit_id}", target: "_blank"
-  
-    == render partial: 'check_results', check: @check if @check.check_results.present?
+        ruby:
+          full_name = @check.repository.full_name
+          commit_id = @check.commit_id
+          commit_url = "https://github.com/#{full_name}/commit/#{commit_id}"
+        = link_to @check.commit_id, commit_url
+    - check_results = @check.check_results
+    == render partial: 'check_results', check: @check if check_results.present?

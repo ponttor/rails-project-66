@@ -3,9 +3,7 @@
     td = check.aasm.human_state
     td
       - if check.commit_id.present?
-        = link_to check.commit_id, "https://github.com/#{repository_full_name}/commit/#{check.commit_id}", target: "_blank"
-      - else
-        |
-
+        - link = "https://github.com/#{repository_full_name}/commit/#{check.commit_id}"
+        = link_to check.commit_id, link, target: '_blank', rel: 'noopener'
     td = check.passed
     td = l(check.created_at, format: :short_full)
