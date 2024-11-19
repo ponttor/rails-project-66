@@ -8,5 +8,5 @@
   div
     = f.input :github_id, collection: @repositories, input_html: { class: 'form-control' },
     label_html: { class: 'form-label mt-1 mb-0' }, required: true
-  div.mt-3
+  .mt-3
     = f.submit t('repositories.buttons.create'), class: 'btn btn-primary'
