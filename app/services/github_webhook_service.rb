@@ -3,7 +3,7 @@
 class GithubWebhookService
   def self.create(repository_id)
     repository = Repository.find(repository_id)
-    user_token = ENV.fetch('GITHUB_TOKEN', nil)
+    user_token = ENV.fetch('GITHUB_TOKEN', repository.user.token)
     # user_token = repository.user.token
 
     client = ApplicationContainer[:octokit_client].new access_token: user_token, auto_paginate: true

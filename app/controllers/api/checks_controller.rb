@@ -11,13 +11,10 @@ class Api::ChecksController < Api::ApplicationController
   def create
     event_type = request.headers[GITHUB_EVENT_HEADER]
 
-    pp '********************************'
-    pp event_type
-    pp '********************************'
     case event_type
     when PING_EVENT
       handle_ping_event
-    when PUSH_EVENT
+    when PUSH_EVENT, nil # nil for check
       handle_push_event
     else
       render json: { error: t('webhooks.errors.event_not_implemented') }, status: :not_implemented
