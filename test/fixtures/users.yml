@@ -1,8 +1,7 @@
 one:
   name: Ivan
   email: i@iu.com
-  token: 1
 two:
   name: Boris
   email: i@uu.com
-  token: 2
+

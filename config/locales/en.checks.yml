@@ -11,7 +11,7 @@ en:
     results:
       checked_at: Checked at
       status: Status
-      check_passed: Check passed?
+      check_passed: Check passed
       offenses_count: Offense count
       commit_id: Commit ID
       message: Message

@@ -26,6 +26,32 @@ module ActiveSupport
   end
 end
 
+def t(*, **)
+  I18n.t(*, **)
+end
+
+def assert_flash(i18n_path, type = :notice)
+  assert_equal t(i18n_path), flash[type]
+end
+
+# Теперь OmniAuth в тестах не обращается к внешним источникам:
+OmniAuth.config.test_mode = true
+
+def mock_omni_auth(user, provider = :github)
+  auth_hash = {
+    provider: provider.to_s,
+    uid: '12345',
+    info: {
+      email: user.email,
+      nickname: user.nickname
+    },
+    credentials: {
+      token: user.token
+    }
+  }
+  OmniAuth.config.mock_auth[provider] = OmniAuth::AuthHash::InfoHash.new(auth_hash)
+end
+
 module ActionDispatch
   class IntegrationTest
     def sign_in(user, _options = {})
@@ -34,6 +60,9 @@ module ActionDispatch
         info: {
           email: user.email,
           name: user.name
+        },
+        credentials: {
+          token: 'aaa'
         }
       }
 

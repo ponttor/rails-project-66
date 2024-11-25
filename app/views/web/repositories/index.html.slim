@@ -9,7 +9,14 @@
         th = t('repositories.table.header.status')
     tbody
       - @repositories&.each do |repository|
+        - last_check = repository.checks.finished.last
         tr
           td = link_to repository.name, repository
           td = repository.language
-          td = repository.checks&.last&.passed.nil? ? t('checks.repository.no_checks') : repository.checks.last.passed
+          td
+            - if last_check.nil?
+              = t('repositories.check.no_checks_yet')
+            - elsif last_check.pending?
+              = t('repositories.check.verification_not_completed_yet')
+            - else
+              = last_check.passed

@@ -1,41 +1,22 @@
 # frozen_string_literal: true
 
-class Web::AuthController < Web::ApplicationController
-  OMNIAUTH_AUTH_KEY = 'omniauth.auth'
+module Web
+  class AuthController < Web::ApplicationController
+    def callback
+      user_info = request.env['omniauth.auth']
+      email, nickname = user_info[:info].values_at(:email, :nickname)
+      # byebug
+      token = user_info['credentials']['token']
+      user = User.find_or_initialize_by(email: email.downcase)
+      user.update(nickname:, token:)
 
-  def callback
-    redirect_to root_path if signed_in?
+      sign_in user
+      redirect_to root_path, flash: { success: t('flash.auth.success') }
+    end
 
-    user = User.find_or_initialize_by(email: auth_params[:info][:email])
-
-    return redirect_to root_path, flash: { danger: t('flash.auth.error') } unless update_user_info(user)
-
-    sign_in user
-    redirect_to root_path, flash: { success: t('flash.auth.success') }
-  end
-
-  def destroy
-    session[:user_id] = nil
-    redirect_to root_path, flash: { success: t('flash.auth.destroy') }
-  end
-
-  private
-
-  def auth_params
-    request.env[OMNIAUTH_AUTH_KEY]
-  end
-
-  def sign_in(user)
-    session[:user_id] = user.id
-  end
-
-  def update_user_info(user)
-    user.name = auth_params[:info][:name]
-    user.email = auth_params[:info][:email]
-    user.image_url = auth_params[:info][:image]
-    user.nickname = auth_params[:info][:nickname]
-    user.token = auth_params[:credentials][:token] if auth_params[:credentials]
-
-    user.save
+    def destroy
+      sign_out
+      redirect_to root_path, flash: { info: t('flash.auth.destroy') }
+    end
   end
 end

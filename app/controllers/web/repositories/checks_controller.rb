@@ -14,8 +14,7 @@ class Web::Repositories::ChecksController < Web::ApplicationController
     @check.save!
 
     LintCheckJob.perform_later(@check.id, current_repository.id)
-    flash[:info] = t('flash.checks.job_started')
-    redirect_to @check.repository
+    redirect_to current_repository, flash: { success: t('flash.checks.create') }
   rescue StandardError => e
     @check.fail!
     UserMailer.with(check: @check).failed.deliver_later

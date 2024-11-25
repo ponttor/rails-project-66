@@ -11,8 +11,8 @@ ru:
     results:
       checked_at: Дата создания
       status: Статус
-      check_passed: Проверка пройдена?
       offenses_count: Количество ошибок
+      check_passed: Проверка пройдена
       commit_id: ID коммита
       message: Сообщение
       rule_id: Идентификатор правила

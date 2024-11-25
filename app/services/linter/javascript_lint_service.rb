@@ -2,8 +2,10 @@
 
 class Linter::JavascriptLintService
   def self.perform_lint(path)
-    command = "yarn run eslint --format json #{path}"
-    stdout, = Open3.popen3(command) { |_, stdout, _, wait_thr| [stdout.read, wait_thr.value] }
+    # byebug
+
+    run_programm "find #{path} -name '*eslint*.*' -type f -delete"
+    stdout, _exit_status = run_programm "yarn run eslint --config app/services/linter/configs/.eslintrc.yml --format json #{path}"
     stdout.split("\n")[2]
   end
 
@@ -31,5 +33,13 @@ class Linter::JavascriptLintService
       check_results << src_file
     end
     [check_results, number_of_offenses]
+  end
+
+  def self.run_programm(command)
+    stdout, exit_status = Open3.popen3(command) do |_stdin, stdout, _stderr, wait_thr|
+      [stdout.read, wait_thr.value]
+    end
+    # pp exit_status.exitstatus # https://docs.ruby-lang.org/en/2.0.0/Process/Status.html#method-i-exitstatus
+    [stdout, exit_status.exitstatus]
   end
 end
