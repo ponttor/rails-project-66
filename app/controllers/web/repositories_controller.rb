@@ -51,6 +51,6 @@ class Web::RepositoriesController < Web::ApplicationController
     @repository.ssh_url = repository_data[:ssh_url]
     @repository.full_name = repository_data[:full_name]
     @repository.clone_url = repository_data[:clone_url]
-    @repository.language = repository_data[:language].downcase
+    @repository.language = repository_data[:language]&.downcase || repository_data[:source][:language]&.downcase
   end
 end
