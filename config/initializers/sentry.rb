@@ -2,9 +2,9 @@
 
 unless Rails.env.test?
   Sentry.init do |config|
-    config.dsn = 'https://590ee78b1f0a0bee42d59d8e0effc190@o4507493639127040.ingest.de.sentry.io/4507493641289808'
+    config.dsn = ENV.fetch('SENTRY_DSN', nil)
     config.breadcrumbs_logger = %i[active_support_logger http_logger]
-
+    config.environment = 'production'
     # Set traces_sample_rate to 1.0 to capture 100%
     # of transactions for performance monitoring.
     # We recommend adjusting this value in production.
