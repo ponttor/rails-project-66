@@ -4,7 +4,7 @@ class SetupRepositoryJob < ApplicationJob
   queue_as :default
 
   def perform(github_id)
-    repository = Repository.find_by(github_id: github_id)
+    repository = Repository.find_by(github_id:)
     update_repository_data(repository)
 
     OctokitService.create_hook(repository.id)
