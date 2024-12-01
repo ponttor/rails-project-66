@@ -18,9 +18,13 @@ class Web::RepositoriesController < Web::ApplicationController
 
   def create
     @repository = current_user.repositories.find_or_initialize_by(repository_params)
+    exist = @repository.persisted?
 
-    SetupRepositoryJob.perform_later(repository_params[:github_id]) unless @repository.persisted?
+    @repository.name = '-' if @repository.name.blank?
     @repository.save!
+
+    SetupRepositoryJob.perform_later(repository_params[:github_id]) unless exist
+
     redirect_to repositories_path, flash: { info: t('flash.repositories.create') }
   rescue StandardError => _e
     flash.now[:danger] = t('flash.repositories.create_error')
