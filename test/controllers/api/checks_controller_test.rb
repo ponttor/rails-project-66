@@ -10,7 +10,7 @@ module Api
     end
 
     test 'push-event with invalid repository id' do
-      post checks_url, params: { repository: { id: 777 } }, headers: { 'X-GitHub-Event': 'push' }
+      post api_checks_url, params: { repository: { id: 777 } }, headers: { 'X-GitHub-Event': 'push' }
       assert_response :not_found
       assert_not Repository::Check.exists?(repository_id: 777)
     end
@@ -18,7 +18,7 @@ module Api
     test 'push-event with valid repository id' do
       @repository.checks.destroy_all
       assert_difference('@repository.checks.count', 1) do
-        post checks_url, params: { repository: { id: @github_id } }, headers: { 'X-GitHub-Event': 'push' }
+        post api_checks_url, params: { repository: { id: @github_id } }, headers: { 'X-GitHub-Event': 'push' }
         perform_enqueued_jobs
       end
       assert_response :ok
@@ -34,14 +34,14 @@ module Api
 
     test 'ping-event' do
       last_check = @repository.checks.last
-      post checks_url, params: { repository: { id: @github_id } }, headers: { 'X-GitHub-Event': 'ping' }
+      post api_checks_url, params: { repository: { id: @github_id } }, headers: { 'X-GitHub-Event': 'ping' }
       assert_response :ok
       assert_equal last_check, @repository.checks.last
     end
 
     test 'not implemented event' do
       last_check = @repository.checks.last
-      post checks_url, params: { repository: { id: @github_id } }, headers: { 'X-GitHub-Event': 'pull_request' }
+      post api_checks_url, params: { repository: { id: @github_id } }, headers: { 'X-GitHub-Event': 'pull_request' }
       assert_response :not_implemented
       assert_equal last_check, @repository.checks.last
     end
