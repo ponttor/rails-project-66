@@ -30,7 +30,7 @@ class GitCloneService
 
   def fetch_last_commit_id
     commit_id_command = "cd #{@path} && git rev-parse --short HEAD"
-    stdout, exit_status = run_command(commit_id_command)
+    stdout, exit_status = run_programm(commit_id_command)
 
     raise GitFetchError, "Failed to fetch last commit ID: #{stdout}" unless exit_status.zero?
 
