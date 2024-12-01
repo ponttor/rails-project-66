@@ -29,7 +29,11 @@ class GitCloneService
   end
 
   def fetch_last_commit_id
-    last_commit = HTTParty.get("#{GITHUB_API_BASE_URL}#{@repository.full_name}/commits").first
-    last_commit['sha'].slice(0, 7)
+    commit_id_command = "cd #{@path} && git rev-parse --short HEAD"
+    stdout, exit_status = run_command(commit_id_command)
+
+    raise GitFetchError, "Failed to fetch last commit ID: #{stdout}" unless exit_status.zero?
+
+    stdout.strip
   end
 end

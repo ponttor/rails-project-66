@@ -5,7 +5,6 @@ en:
       error: "Authentication failed Please try again"
       destroy: "You have successfully signed out"
     application:
-      not_authorized: "You are not authorized for this action"
       not_authenticated: "You need to sign in to continue"
     repositories:
       create: "Repository created successfully"

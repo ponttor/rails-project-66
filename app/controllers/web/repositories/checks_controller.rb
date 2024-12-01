@@ -5,15 +5,13 @@ class Web::Repositories::ChecksController < Web::ApplicationController
 
   def show
     @check = Repository::Check.find(params[:id])
-    authorize @check
   end
 
   def create
     @check = current_repository.checks.new
-    authorize @check
     @check.save!
 
-    LintCheckJob.perform_later(@check.id, current_repository.id)
+    LintCheckJob.perform_later(@check.id)
     redirect_to current_repository, flash: { success: t('flash.checks.create') }
   rescue StandardError => e
     @check.fail!

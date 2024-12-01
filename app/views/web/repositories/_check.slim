@@ -1,9 +1,6 @@
   tr
-    td = link_to check.id, repository_check_path(check.repository, check)
-    td = t("repo_check_states.#{check.aasm_state}")
-    td
-      - if check.commit_id.present?
-        - link = "https://github.com/#{repository_full_name}/commit/#{check.commit_id}"
-        = link_to check.commit_id, link, target: '_blank', rel: 'noopener'
-    td = check.passed
-    td = l(check.created_at, format: :short_full)
+      td = link_to check.id, repository_check_path(check.repository, check)
+      td = t("repo_check_states.#{check.aasm_state}")
+      td = commit_link(repository_full_name, check.commit_id)
+      td = check.passed
+      td = l(check.created_at, format: :short_full)

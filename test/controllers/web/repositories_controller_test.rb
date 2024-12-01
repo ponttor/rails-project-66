@@ -28,8 +28,8 @@ module Web
       assert_select 'p' do |elements|
         assert_match @repository.full_name, elements[0].text.strip
         assert_match @repository.language, elements[1].text.strip
-        assert_match I18n.l(@repository.created_at, format: '%d %B %Y %H:%M'), elements[2].text.strip
-        assert_match I18n.l(@repository.updated_at, format: '%d %B %Y %H:%M'), elements[2].text.strip
+        assert_match I18n.l(@repository.created_at, format: '%-d %B %Y %H:%M'), elements[2].text.strip
+        assert_match I18n.l(@repository.updated_at, format: '%-d %B %Y %H:%M'), elements[2].text.strip
       end
 
       assert_select 'hr'
@@ -42,11 +42,11 @@ module Web
 
     test 'create repository successfully' do
       post repositories_url, params: { repository: { github_id: 482_905_026 } }
-
-      assert_redirected_to repositories_url
-
+      perform_enqueued_jobs
       created_repository = Repository.find_by(github_id: 482_905_026)
-      assert_not_nil created_repository
+
+      assert { created_repository }
+      assert_redirected_to repositories_url
 
       assert_equal 'alpha_project', created_repository[:name]
       assert_equal 'user_alpha/alpha_project', created_repository[:full_name]

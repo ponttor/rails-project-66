@@ -7,26 +7,25 @@ class Web::Repositories::ChecksControllerTest < ActionDispatch::IntegrationTest
     @repository = repositories(:ruby)
     @check = repository_checks(:ruby_created)
     @user = users(:one)
+    sign_in(@user)
   end
 
   test 'show' do
-    sign_in(@user)
     get repository_check_url(@repository, @check)
     assert_response :success
   end
 
   test 'create check and perform lint' do
-    sign_in(@user)
-    LintService.new(@check, @repository).perform_check
+    post repository_checks_url(@repository)
+    perform_enqueued_jobs
 
-    assert_difference('Repository::Check.count', 1) do
-      post repository_checks_url(@repository)
-    end
+    created_check = Repository::Check.last
+    created_check.reload
 
-    assert_equal 'finished', @check.aasm_state
-    assert @check.passed?
+    assert_equal 'finished', created_check.aasm_state
+    assert created_check.passed?
 
-    assert_not_nil @check.check_results
-    assert @check.offenses_count.is_a?(Integer)
+    assert_not_nil created_check.check_results
+    assert created_check.offenses_count.is_a?(Integer)
   end
 end

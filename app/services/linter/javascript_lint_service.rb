@@ -3,7 +3,7 @@
 class Linter::JavascriptLintService
   def self.perform_lint(path)
     run_programm "find #{path} -name '*eslint*.*' -type f -delete"
-    stdout, _exit_status = run_programm "yarn run eslint --config app/services/linter/configs/.eslintrc.yml --format json --no-eslintrc #{path}"
+    stdout, = run_programm "yarn run eslint --config app/services/linter/configs/.eslintrc.yml --format json --no-eslintrc #{path}"
     stdout.split("\n")[2]
   end
 

@@ -24,10 +24,6 @@ table.table
       td
         = t('checks.results.commit_id')
       td
-        ruby:
-          full_name = @check.repository.full_name
-          commit_id = @check.commit_id
-          commit_url = "https://github.com/#{full_name}/commit/#{commit_id}"
-        = link_to @check.commit_id, commit_url
+        = commit_link(@check.repository.full_name, @check.commit_id)
     - check_results = @check.check_results
     == render partial: 'check_results', check: @check if check_results.present?

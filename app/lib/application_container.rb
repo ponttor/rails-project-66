@@ -7,10 +7,8 @@ class ApplicationContainer
   extend Dry::Container::Mixin
 
   if Rails.env.test?
-    require './lib/stub'
-    require './lib/stub/octokit_client'
     register :octokit_client, -> { Stub::OctokitClient }
-    register :fetch_repository, -> { Stub }
+    register :fetch_repository, -> { Stub::GitCloneService }
   else
     register :octokit_client, -> { Octokit::Client }
     register :fetch_repository, -> { GitCloneService }

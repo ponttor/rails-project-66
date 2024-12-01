@@ -3,9 +3,9 @@
 class LintCheckJob < ApplicationJob
   queue_as :default
 
-  def perform(check_id, repository_id)
+  def perform(check_id)
     check = Repository::Check.find_by(id: check_id)
-    repository = Repository.find_by(id: repository_id)
+    repository = check.repository
 
     return if check.nil? || repository.nil?
 
