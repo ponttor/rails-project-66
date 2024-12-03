@@ -8,4 +8,4 @@ table.table.table-hover.mb-5
       th
         = t('checks.results.line:column')
   tbody
-    == render partial: 'src_file', collection: @check.check_results, locals: { check: @check }
+    == render partial: 'src_file', collection: check.check_results, locals: { check: check }

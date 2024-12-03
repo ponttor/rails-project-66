@@ -6,6 +6,7 @@ en:
       destroy: "You have successfully signed out"
     application:
       not_authenticated: "You need to sign in to continue"
+      not_authorized: "You are not authorized for this action"
     repositories:
       create: "Repository created successfully"
       create_error: "Failed to create repository Please check the input and try again"

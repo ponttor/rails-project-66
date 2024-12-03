@@ -7,10 +7,10 @@ class LintService
   JAVASCRIPT = 'javascript'
   REPOSITORY_CLONE_PATH = 'tmp/git_clones/'
 
-  def initialize(check, repository)
+  def initialize(check)
     @check = check
-    @repository = repository
-    @repository_path = "#{REPOSITORY_CLONE_PATH}#{repository.name}/"
+    @repository = check.repository
+    @repository_path = "#{REPOSITORY_CLONE_PATH}#{check.repository.name}/"
   end
 
   def perform_check

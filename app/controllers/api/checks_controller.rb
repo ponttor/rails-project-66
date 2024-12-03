@@ -31,14 +31,14 @@ class Api::ChecksController < Api::ApplicationController
     return render json: { error: t('webhooks.errors.repository_not_found') }, status: :not_found if repository.nil?
 
     check = repository.checks.new
-    if perform_lint_check(check, repository)
+    if perform_lint_check(check)
       render json: { message: t('webhooks.messages.check_created_successfully') }, status: :ok
     else
       render json: { error: t('webhooks.errors.lint_service_failed') }, status: :unprocessable_entity
     end
   end
 
-  def perform_lint_check(check, _repository)
+  def perform_lint_check(check)
     check.save!
     LintCheckJob.perform_later(check.id)
     true

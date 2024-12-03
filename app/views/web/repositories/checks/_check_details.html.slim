@@ -4,26 +4,26 @@ table.table
       td
         = t('checks.results.checked_at')
       td
-        = l(@check.updated_at.localtime)
+        = l(check.updated_at.localtime)
     tr
       td
         = t('checks.results.status')
       td
-        = t("repo_check_states.#{@check.aasm_state}")
+        = t("repo_check_states.#{check.aasm_state}")
     tr
       td
         = t('checks.results.check_passed')
       td
-        = @check.passed
+        = check.passed
     tr
       td
         = t('checks.results.offenses_count')
       td
-        = @check.offenses_count
+        = check.offenses_count
     tr
       td
         = t('checks.results.commit_id')
       td
-        = commit_link(@check.repository.full_name, @check.commit_id)
-    - check_results = @check.check_results
-    == render partial: 'check_results', check: @check if check_results.present?
+        = commit_link(check.repository.full_name, check.commit_id)
+    - check_results = check.check_results
+    == render partial: 'check_results', check: check if check_results.present?

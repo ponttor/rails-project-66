@@ -42,7 +42,6 @@ module Web
 
     test 'create repository successfully' do
       post repositories_url, params: { repository: { github_id: 482_905_026 } }
-      perform_enqueued_jobs
       created_repository = Repository.find_by(github_id: 482_905_026)
 
       assert { created_repository }

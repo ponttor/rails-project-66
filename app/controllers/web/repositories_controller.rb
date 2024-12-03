@@ -20,7 +20,6 @@ class Web::RepositoriesController < Web::ApplicationController
     @repository = current_user.repositories.find_or_initialize_by(repository_params)
     exist = @repository.persisted?
 
-    @repository.name = '-' if @repository.name.blank?
     @repository.save!
 
     SetupRepositoryJob.perform_later(repository_params[:github_id]) unless exist

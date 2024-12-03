@@ -11,7 +11,7 @@
       - @repositories&.each do |repository|
         - last_check = repository.checks.finished.last
         tr
-          td = link_to repository.name, repository
+          td = repository.name.present? ? link_to(repository.name, repository) : '-'
           td = repository.language
           td
             - if last_check.nil?

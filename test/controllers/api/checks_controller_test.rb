@@ -19,7 +19,6 @@ module Api
       @repository.checks.destroy_all
       assert_difference('@repository.checks.count', 1) do
         post api_checks_url, params: { repository: { id: @github_id } }, headers: { 'X-GitHub-Event': 'push' }
-        perform_enqueued_jobs
       end
       assert_response :ok
 

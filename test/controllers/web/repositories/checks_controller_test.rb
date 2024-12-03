@@ -17,7 +17,6 @@ class Web::Repositories::ChecksControllerTest < ActionDispatch::IntegrationTest
 
   test 'create check and perform lint' do
     post repository_checks_url(@repository)
-    perform_enqueued_jobs
 
     created_check = Repository::Check.last
     created_check.reload

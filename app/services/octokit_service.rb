@@ -18,10 +18,8 @@ class OctokitService
 
     def create_hook(repository_id)
       repository = Repository.find(repository_id)
-      user_token = repository.user.token
       url = Rails.application.routes.url_helpers.api_checks_url
-
-      client = ApplicationContainer[:octokit_client].new access_token: user_token, auto_paginate: true
+      client = get_client(repository.user)
 
       client.create_hook(
         repository.github_id,
