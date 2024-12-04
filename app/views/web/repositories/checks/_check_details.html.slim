@@ -26,4 +26,4 @@ table.table
       td
         = commit_link(@check.repository.full_name, @check.commit_id)
     - check_results = @check.check_results
-    == render partial: 'check_results', check: @check if @check_results.present?
+    == render partial: 'check_results', check: @check if check_results.present?
