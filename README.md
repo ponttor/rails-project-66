@@ -7,7 +7,7 @@
 
 A project that helps automatically monitor the quality of repositories on GitHub. It tracks changes and runs them through built-in analyzers. Then it generates reports and sends them to the user.
 
-deployed on render: https://rails-project-66-lgt4.onrender.com
+deployed on render: https://rails-project-66-r5cb.onrender.com
 
 ## System dependencies
 
